@@ -103,4 +103,99 @@ def ask_time():
     speak(time)
 
 
-ask_time()
+# create initial greeting
+def initial_greeting():
+
+    # speak greeting
+    speak("Hello I am Triss, How can I assist you today?")
+
+
+# Main function of virtual assistant
+def my_assistant():
+
+    # Activate the initial greeting
+    initial_greeting()
+
+    # state of program boolean
+    activated = True
+
+    # main loop
+    while activated:
+
+        # enable microphone and save request
+        user_request = convert_audio_into_text().lower()
+
+        # voice command to open YouTube
+        if 'open youtube' in user_request:
+            speak("Sure, opening youtube")
+            webbrowser.open('https://www.youtube.com')
+            continue
+
+        # voice command to open Google
+        elif 'open google' in user_request:
+            speak("Of course, I am on it!")
+            webbrowser.open('https://www.google.com')
+            continue
+
+        # voice command to search wikipedia
+        elif 'search wikipedia' in user_request:
+            speak("Alright, searching wikipedia!")
+            user_request = user_request.replace('search wikipedia', '')
+            answer = wikipedia.summary(user_request, sentences=1)
+            speak("According to wikipedia: ")
+            speak(answer)
+            continue
+
+        # voice command to general search the internet
+        elif 'search the internet' in user_request:
+            speak("No problem, searching the internet!")
+            user_request = user_request.replace('search the internet', '')
+            pywhatkit.search(user_request)
+            speak("This is what I found: ")
+            continue
+
+        # voice command to play video on YouTube
+        elif 'play on youtube' in user_request:
+            speak("Of course, playing on youtube!")
+            user_request = user_request.replace('play on youtube', '')
+            pywhatkit.playonyt(user_request)
+            continue
+
+        # voice command to get a joke
+        elif 'tell me a joke' in user_request:
+            speak("A joke huh? Ok, I got one for you")
+            speak(pyjokes.get_joke())
+            continue
+
+        # voice command to get a stock price
+        elif 'tell me the stock price' in user_request:
+            share = user_request.split()[-2].strip()
+            portfolio = {
+                'Tesla': 'TSLA',
+                'Google': 'GOOGL',
+                'Bank of America': 'BAC',
+                'Tencent': 'TCEHY',
+                'Cisco Systems': 'CSCO',
+                'Amazon': 'AMZN',
+                'Apple': 'AAPL'
+            }
+            try:
+                search_stock = portfolio[share]
+                search_stock = yf.Ticker(search_stock)
+                price = search_stock.info['regularMarketPrice']
+                speak(f'I found that stock! The price of {share} is {price}')
+                continue
+            except:
+                speak("I am sorry, but I didn't find that stock..")
+                continue
+
+        # voice command to ask for day of the week
+        elif 'what day is it' or 'what is the day' or 'what is the day of the week' in user_request:
+            ask_day()
+            continue
+
+        # voice command to ask for the current time
+        elif 'what time is it' or 'what is the time' or 'what is the current time' in user_request:
+            ask_time()
+            continue
+
