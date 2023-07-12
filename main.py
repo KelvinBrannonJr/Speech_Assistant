@@ -199,3 +199,8 @@ def my_assistant():
             ask_time()
             continue
 
+        # put virtual assist system in standby mode
+        elif 'standby' in user_request:
+            speak("Ok, I am going to standby, Please let me know if you need anything else")
+            break
+
