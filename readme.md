@@ -5,5 +5,5 @@
 ### Features
 ## - Answer questions
 ## - Can browse internet
-## - Can get finance data
+## - Can get stock price finance data
 ## - Simulates humor with jokes
