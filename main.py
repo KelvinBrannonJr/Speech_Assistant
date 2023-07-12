@@ -9,7 +9,7 @@ import wikipedia
 import pyaudio
 
 
-# Convert microphone audio into text
+# convert microphone audio into text
 def convert_audio_into_text():
 
     # store recognizer in variable
@@ -68,5 +68,39 @@ def speak(message):
     engine.runAndWait()
 
 
-speak("Good morning Kelvin, let's get some work done!")
+# inform day of the week and time
+def ask_day():
+    day = datetime.date.today()
+    print(day)
 
+    # variable for day
+    week_day = day.weekday()
+    print(week_day)
+
+    # name of days
+    calendar = {
+        0: 'Monday',
+        1: 'Tuesday',
+        2: 'Wednesday',
+        3: 'Thursday',
+        4: 'Friday',
+        5: 'Saturday',
+        6: 'Sunday'}
+
+    # say the day of week
+    speak(f"Today is {calendar[week_day]}")
+
+
+# inform what time it currently is
+def ask_time():
+
+    # variable with time information
+    time = datetime.datetime.now()
+    time = f'Sure, currently it is {time.hour}, {time.minute}'
+    print(time)
+
+    # say the time
+    speak(time)
+
+
+ask_time()
