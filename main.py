@@ -52,5 +52,21 @@ def convert_audio_into_text():
             return "I am still waiting"
 
 
-convert_audio_into_text()
+# virtual assistant can be heard through speakers
+def speak(message):
+
+    # voice type Microsoft templates
+    us_voice_id_david = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_DAVID_11.0"
+    us_voice_id_zira = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0"
+
+    # start engine of pyttsx3
+    engine = pyttsx3.init()
+    engine.setProperty('voice', us_voice_id_zira)
+
+    # deliver message
+    engine.say(message)
+    engine.runAndWait()
+
+
+speak("Good morning Kelvin, let's get some work done!")
 
